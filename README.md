@@ -1,43 +1,28 @@
-# VT-40
-40% ortholinear mechanical keyboard
+# My Personal VT-40 (original by [vladantrhlik](https://github.com/vladantrhlik/VT-40/))
 
-![vt-40](img/1.jpg)
+40% ortholinear mechanical keyboard, modified to my own taste with a cover for the microcontroller & a custom base-plate.
 
-## Build info
-PCB has Planck MIT layout and supports two rotary encoders and 2 RGB LEDs (which sadly don't work, because I'm bad at soldering xD). For switches I chose Kailh choc reds (lubed with 205g0), because I wanted to try low profile switches for a while. Case is 3D printed as well as F and J keycaps and knobs for rotary encoders. I also added a little buzzer to the bottom and modified KMK firmware to make it work, which was suprisingly pretty easy.
+## Materials
 
-## KMK
-[KMK firmware](https://github.com/KMKfw) is awesome. Since it’s based on circuitpython, you don’t need to install anything on your computer. You just plug it in, keyboard shows up as USB drive and you can edit python files which are stored there. It also has many features as QMK (RGB, BLE, split keyboards).
-### Pinout
-Key matrix:
-```py
-keyboard.col_pins = (board.GP6,board.GP7,board.GP8,board.GP9,board.GP10,board.GP11,board.GP12,board.GP13,board.GP21,board.GP20,board.GP19,board.GP18,board.GP22)
-keyboard.row_pins = (board.GP2,board.GP3,board.GP4,board.GP5)
-keyboard.diode_orientation = DiodeOrientation.COLUMNS
-```
-Encoders:
-```py
-encoder_map = [
-    [
-        (KC.VOLD,KC.VOLU,1),
-        (KC.A,KC.B,1),
-    ],
-]
-encoder_ext = EncoderHandler([board.GP26, board.GP16],[board.GP27, board.GP17], encoder_map)
-```
-My default layer:
-```py
-keyboard.keymap = [
-	[
-		KC.ESC,  KC.Q,    KC.W,  KC.E,   KC.R,  KC.T,   KC.Y,   KC.U,    KC.I,     KC.O,    KC.P,    KC.BSPC,  KC.MPLY,
-		KC.TAB,  KC.A,    KC.S,  KC.D,   KC.F,  KC.G,   KC.H,   KC.J,    KC.K,     KC.L,    KC.GRV,  KC.LSFT(KC.BSLS),  KC.MUTE,
-		KC.LSFT, KC.Z,    KC.X,  KC.C,   KC.V,  KC.B,   KC.N,   KC.M,    KC.COMMA, KC.DOT,  KC.UP,   KC.ENT,   XXXXXXX,
-		KC.LCTL, KC.LALT, KC.MO(1),   KC.SPC, KC.MO(2), KC.SPC, KC.SPC, KC.RALT, KC.NO,    KC.LEFT, KC.DOWN, KC.RIGHT, XXXXXXX,
-	],
- ...
-]
-```
-Encoders buttons are wired to 13. column of key matrix, so you can change their behaviour on different layers.
+- Raspberry Pi Pico
+- Diodes (1N4148)
+- PCB (ordered on JLC with `pcb/gerber.zip`)
+- Encoders (EC11)
+- screws (which type did I use?)
+    - m2.5 10mm (2x)    mounting the cover to the Pico
+    - m4 15mm? (1x)     mounting the cover to the PCB
+    - m2 (6x)           bottom plate to PCB 
+- Switches (running Kailh Low Profile Choc Red's)
+- Keycaps (got a set of [Work Louder Blind](https://worklouder.cc/shop/wrk-blind/))
 
-## PCB
-PCB supports CHOC, MX and ALPS switches. There are also 2 rotary encoders (EC11) and pads for two [TH WS2811 LEDs](https://www.aliexpress.com/item/32825363423.html?spm=a2g0s.9042311.0.0.47844c4dhfjDqT).
+## Building it
+
+Solder the diodes, put in the headers for the Pico, solder the Pico to the pcb and finally the encoders & switches
+
+I lasered the microcontroller cover out of black HDPE, 3mm thick. Use the file in the `dxf` folder. Carefully mount the cover on the microcontroller. Then use the bigger screw to attach the cover to the PCB. (the screw will self-fasten in the PCB).
+
+Print the two bottom plates, the first one (`bottom-1.stl`) in the color you like, the other one (`bottom-2.stl`) in TPU. Mount `bottom-1` plate to the PCB and attach the `bottom-2` plate with double sided tape.
+
+## Code
+
+See the `src` folder. Updated for the new KMK version which supports the encoders differently. I didn't solder the LEDs, so that's not in there!. Flash KMK to the Pico and copy the `main.py` over when plugging the keyboard in. That's it, ready now!
