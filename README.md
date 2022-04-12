@@ -2,6 +2,8 @@
 
 40% ortholinear mechanical keyboard, modified to my own taste with a cover for the microcontroller & a custom base-plate.
 
+![Personalized VT-40](img/vt-40-personalized.jpeg)
+
 ## Materials
 
 - Raspberry Pi Pico
@@ -10,8 +12,8 @@
 - Encoders (EC11)
 - screws (which type did I use?)
     - m2.5 10mm (2x)    mounting the cover to the Pico
-    - m4 15mm? (1x)     mounting the cover to the PCB
-    - m2 (6x)           bottom plate to PCB 
+    - m4 15mm (1x)     mounting the cover to the PCB
+    - m2 4mm (6x)           bottom plate to PCB 
 - Switches (running Kailh Low Profile Choc Red's)
 - Keycaps (got a set of [Work Louder Blind](https://worklouder.cc/shop/wrk-blind/))
 
